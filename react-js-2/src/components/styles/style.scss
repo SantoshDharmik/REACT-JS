@@ -1,0 +1,19 @@
+#component1{
+    /* background-color: skyblue; */
+    color: skyblue;
+    > ul{
+        color: red;
+        >li {
+            color: green;
+            +li {
+                color: blue;
+                &:hover{
+                    color: rgb(12, 12, 12);
+                }
+                &::after{
+                    content: "Change by hover effect";
+                }
+            }
+        }
+    }
+}
