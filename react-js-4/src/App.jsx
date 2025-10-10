@@ -8,7 +8,8 @@ const App = () => {
 let [count, setCount] = useState(0)
 
   const handleClick = () => {
-    setCount((prev) => prev + 1 )
+    setCount((prev) => prev +
+  10000 )
     console.log(count)
   }
 
@@ -33,7 +34,7 @@ let [count, setCount] = useState(0)
 
 
 
-      <button onClick={handleClick} className='font-bold bg-green-500 p-2 text-center'>
+      <button onMouseDown={handleClick} className='font-bold bg-green-500 p-2 text-center'>
         Increae Count
       </button>
     </div>
