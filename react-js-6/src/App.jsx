@@ -26,7 +26,7 @@ const App = () => {
       <AddLanguageUi dataSetLanguages={dataSetLanguages} dataSetLanguagesHandler={setDataSetLanguages} />
 
       <LanguageGrid dataSetLanguages={dataSetLanguages} />
-
+      
     </>
   )
 }
