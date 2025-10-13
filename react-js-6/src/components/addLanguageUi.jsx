@@ -1,4 +1,4 @@
-import React, { use, useState } from "react"
+import React, { useState } from "react"
 
 import "./styles/style.scss"
 
@@ -10,6 +10,16 @@ const AddLanguageUi = (props) => {
 
     // these code is used for input validation for title
     let [checkUniqueTitle, setCheckUniqueTitle] = useState(false)
+
+    // these code is for to fill all field otherwise form does not submit 
+    let allFilledAreFill = (
+        formData.title.trim() !== "" &&
+        formData.scope.length > 0 &&
+        formData.duration.trim() !== "" &&
+        formData.difficulties.trim() !== "" &&
+        checkUniqueTitle) // make sure title is unique
+        
+
 
     // it is used for added new data and fill formed
     const handleChange = (event) => {
@@ -51,6 +61,25 @@ const AddLanguageUi = (props) => {
         } catch (error) {
             console.log("Checktitle error : ", error)
             setCheckUniqueTitle(false)
+        }
+    }
+
+    // check duplicate title & not alow to same
+    const checkScope = (event) => {
+        try {
+            let { value } = event.target
+
+            let result = props.dataSetLanguages.filter((language) => {
+                return value.toLowerCase() == language.title.toLowerCase()
+            })
+
+            if (result.length != 0) throw ("duplicate entry !")
+
+            setCheckUniqueScope(true)
+
+        } catch (error) {
+            console.log("CheckScope error : ", error)
+            setCheckUniqueScope(false)
 
         }
 
@@ -78,7 +107,11 @@ const AddLanguageUi = (props) => {
 
 
 
-                    <input onChange={handleChange} className="form-control form-check" type="text" name='scope' value={formData.scope} placeholder="Scope" />
+                    <input onChange={(event) => {
+                        handleChange(event)
+                        checkScope(event)
+                    }}
+                        className="form-control form-check" type="text" name='scope' value={formData.scope} placeholder="Scope" />
 
 
 
@@ -90,11 +123,12 @@ const AddLanguageUi = (props) => {
                     {/* <button className="btn btn-dark">Add Language !</button> */}
 
                     <button
-                        className={`btn fw-bold text-light px-4 py-2 ${checkUniqueTitle ? "btn-success" : "btn-secondary"} `}
-                        disabled={!checkUniqueTitle}
+                        className={`btn fs-3 fw-bolder text-dark px-4 py-2 ${allFilledAreFill ? "btn-success" : "btn-secondary"}`}
+                        disabled={!allFilledAreFill}
                     >
                         Add Language !
                     </button>
+
 
                 </form>
             </div>
