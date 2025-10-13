@@ -1,18 +1,13 @@
 import React, { useState } from 'react'
 import "./styles/style.scss"
 
-import { languages } from "./Dataset.js"
-
-const LanugageGrid = () => {
-
-    let [data, setData] = useState(languages)
-
+const LanguageGrid = (props) => {   
     return (
         <div className='language-grid container'>
             <h1 className='fw-bold display-5 text-center my-5'>Language Grid !</h1>
             <div className='row gy-4'>
                 {
-                    data.map((item, index) => {
+                   props.dataSetLanguages.map((item, index) => {
                         return (
                             <div key={index} className='col-md-4'>
                                 <div className='card h-100 p-3'>
@@ -37,15 +32,7 @@ const LanugageGrid = () => {
                                     </h2>
                                     <h2 className='h6 mt-2'>
                                         <span className='fw-semibold'>Difficulties : </span>
-                                        <span className={
-                                            item.difficulties === "Hard"
-                                                ? "badge bg-danger p-2"
-                                                : item.difficulties === "Easy"
-                                                    ? "badge bg-success p-2"
-                                                    : item.difficulties === "Medium"
-                                                        ? "badge bg-warning text-dark p-2"
-                                                        : ""
-                                        }>
+                                        <span className={item.difficulties.toLowerCase() == "Hard".toLowerCase() ? "badge bg-danger p-2" : item.difficulties.toLowerCase() == "Easy".toLowerCase() ? "badge bg-success p-2" : item.difficulties.toLowerCase() == "Medium".toLowerCase() ? "badge bg-warning text-dark p-2" : null} >
                                             {item.difficulties}
                                         </span>
                                     </h2>
@@ -59,4 +46,4 @@ const LanugageGrid = () => {
     )
 }
 
-export default LanugageGrid
+export default LanguageGrid
