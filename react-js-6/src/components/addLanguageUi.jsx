@@ -11,13 +11,13 @@ const AddLanguageUi = (props) => {
     // these code is used for input validation for title
     let [checkUniqueTitle, setCheckUniqueTitle] = useState(false)
 
-    // these code is for to fill all field otherwise form does not submit 
+    // these code is for to fill all field, otherwise form does not submit 
     let allFilledAreFill = (
         formData.title.trim() !== "" &&
         formData.scope.length > 0 &&
         formData.duration.trim() !== "" &&
         formData.difficulties.trim() !== "" &&
-        checkUniqueTitle) // make sure title is unique
+        checkUniqueTitle) // used for unique title validation
         
 
 
@@ -64,30 +64,6 @@ const AddLanguageUi = (props) => {
         }
     }
 
-    // check duplicate title & not alow to same
-    const checkScope = (event) => {
-        try {
-            let { value } = event.target
-
-            let result = props.dataSetLanguages.filter((language) => {
-                return value.toLowerCase() == language.title.toLowerCase()
-            })
-
-            if (result.length != 0) throw ("duplicate entry !")
-
-            setCheckUniqueScope(true)
-
-        } catch (error) {
-            console.log("CheckScope error : ", error)
-            setCheckUniqueScope(false)
-
-        }
-
-    }
-
-
-
-
     return (
         <>
             <div className="add-language-form d-flex bg-secondary flex-column gap-2 m-5">
@@ -107,10 +83,7 @@ const AddLanguageUi = (props) => {
 
 
 
-                    <input onChange={(event) => {
-                        handleChange(event)
-                        checkScope(event)
-                    }}
+                    <input onChange={handleChange}
                         className="form-control form-check" type="text" name='scope' value={formData.scope} placeholder="Scope" />
 
 
